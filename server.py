@@ -4,16 +4,16 @@ app = Flask(__name__)
 
 # Base de datos ficticia de Pokémon
 pokedex = [
-   {"id": 1, "nombre": "Bulbasaur", "tipo": "Planta/Veneno", "imagen": "bulbasaur.png", "poder": 45, "altura": "0.7m", "peso": "6.9kg"},
-   {"id": 4, "nombre": "Charmander", "tipo": "Fuego", "imagen": "charmander.png", "poder": 39, "altura": "0.6m", "peso": "8.5kg"},
-   {"id": 7, "nombre": "Squirtle", "tipo": "Agua", "imagen": "squirtle.png", "poder": 44, "altura": "0.5m", "peso": "9.0kg"},
-   {"id": 25, "nombre": "Pikachu", "tipo": "Eléctrico", "imagen": "pikachu.png", "poder": 35, "altura": "0.4m", "peso": "6.0kg"},
-   {"id": 39, "nombre": "Jigglypuff", "tipo": "Normal/Hada", "imagen": "jigglypuff.png", "poder": 115, "altura": "0.5m", "peso": "5.5kg"},
-   {"id": 52, "nombre": "Meowth", "tipo": "Normal", "imagen": "meowth.png", "poder": 40, "altura": "0.4m", "peso": "4.2kg"},
-   {"id": 54, "nombre": "Psyduck", "tipo": "Agua", "imagen": "psyduck.png", "poder": 50, "altura": "0.8m", "peso": "19.6kg"},
-   {"id": 94, "nombre": "Gengar", "tipo": "Fantasma/Veneno", "imagen": "gengar.png", "poder": 60, "altura": "1.5m", "peso": "40.5kg"},
-   {"id": 95, "nombre": "Onix", "tipo": "Roca/Tierra", "imagen": "onix.png", "poder": 35, "altura": "8.8m", "peso": "210.0kg"},
-   {"id": 143, "nombre": "Snorlax", "tipo": "Normal", "imagen": "snorlax.png", "poder": 160, "altura": "2.1m", "peso": "460.0kg"}
+   {"id": 1, "nombre": "Bulbasaur", "tipo": ["Planta", "Veneno"], "imagen": "img/bulbasaur.png", "poder": 45, "altura": "0.7m", "peso": "6.9kg"},
+   {"id": 4, "nombre": "Charmander", "tipo": ["Fuego"], "imagen": "img/charmander.png", "poder": 39, "altura": "0.6m", "peso": "8.5kg"},
+   {"id": 7, "nombre": "Squirtle", "tipo": ["Agua"], "imagen": "img/squirtle.png", "poder": 44, "altura": "0.5m", "peso": "9.0kg"},
+   {"id": 25, "nombre": "Pikachu", "tipo": ["Eléctrico"], "imagen": "img/pikachu.png", "poder": 35, "altura": "0.4m", "peso": "6.0kg"},
+   {"id": 39, "nombre": "Jigglypuff", "tipo": ["Normal", "Hada"], "imagen": "img/jigglypuff.png", "poder": 115, "altura": "0.5m", "peso": "5.5kg"},
+   {"id": 52, "nombre": "Meowth", "tipo": ["Normal"], "imagen": "img/meowth.png", "poder": 40, "altura": "0.4m", "peso": "4.2kg"},
+   {"id": 54, "nombre": "Psyduck", "tipo": ["Agua"], "imagen": "img/psyduck.png", "poder": 50, "altura": "0.8m", "peso": "19.6kg"},
+   {"id": 94, "nombre": "Gengar", "tipo": ["Fantasma", "Veneno"], "imagen": "img/gengar.png", "poder": 60, "altura": "1.5m", "peso": "40.5kg"},
+   {"id": 95, "nombre": "Onix", "tipo": ["Roca", "Tierra"], "imagen": "img/onix.png", "poder": 35, "altura": "8.8m", "peso": "210.0kg"},
+   {"id": 143, "nombre": "Snorlax", "tipo": ["Normal"], "imagen": "img/snorlax.png", "poder": 160, "altura": "2.1m", "peso": "460.0kg"}
 ]
 
 
@@ -27,10 +27,32 @@ def pokemon():
    return render_template('pokemon.html', pokedex=pokedex)
 
 # Ruta para mostrar un Pokémon por nombre
+@app.route('/pokemon/<nombre>')
+def pokemon_nombre(nombre):
+   dic={}
+   for pokemon in pokedex:
+      if pokemon["nombre"] == nombre:
+         dic=pokemon
+         break
+   list=[dic]
+   return render_template("pokemon.html", pokedex=list )
 
 # Ruta para mostrar un Pokémon por número en la Pokédex
+@app.route('/pokemon/<int:id>')
+def pokemon_id(id):
+   dic={}
+   for pokemon in pokedex:
+      if pokemon["id"] == id:
+         dic=pokemon
+         break
+   list=[dic]
+   return render_template("pokemon.html", pokedex=list )
 
 # Ruta para mostrar una cantidad específica de Pokémon
+@app.route("/pokemon/cantidad/<int:veces>")
+def cantidad(veces):
+   return render_template("pokemon.html", pokedex=pokedex[:veces])
+
 
 # Ruta de error cuando no se encuentra un Pokémon
 @app.errorhandler(404)

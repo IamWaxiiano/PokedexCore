@@ -1,0 +1,39 @@
+.Fuego{
+    background: #e7761a;
+}
+
+.Planta{
+    background: #5ef717;
+}
+
+.Veneno{
+    background: #b908b9;
+}
+
+.Agua{
+    background: #06b1cf;
+}
+
+.Eléctrico{
+    background: rgb(204, 204, 12);
+}
+
+.Normal{
+    background: #918b3d;
+}
+
+.Hada{
+    background: #ec66da;
+}
+
+.Fantasma{
+    background: #9702fa;
+}
+
+.Roca{
+    background: #8d862a;
+}
+
+.Tierra{
+    background: #f0b331;
+}
