@@ -34,6 +34,10 @@ def pokemon_nombre(nombre):
       if pokemon["nombre"] == nombre:
          dic=pokemon
          break
+   if dic=={}:
+      return not_found(404)
+   else:
+      list=[dic]
    list=[dic]
    return render_template("pokemon.html", pokedex=list )
 
@@ -45,7 +49,10 @@ def pokemon_id(id):
       if pokemon["id"] == id:
          dic=pokemon
          break
-   list=[dic]
+   if dic=={}:
+      return not_found(404)
+   else:
+      list=[dic]
    return render_template("pokemon.html", pokedex=list )
 
 # Ruta para mostrar una cantidad específica de Pokémon
